@@ -141,15 +141,6 @@ with st.expander("Why 173?"):
 
     $$
     84 
-      = \left(\frac{\text{RE}_{\text{CH}_4}}{\text{RE}_{\text{CO₂}}} \right)\times 0.486
-    \quad\Longrightarrow\quad
-    \left(\frac{\text{RE}_{\text{CH}_4}}{\text{RE}_{\text{CO₂}}\right) 
-      \approx \frac{84}{0.486} 
-      \approx 173
-    $$
-
-    $$
-    84 
       = \left(\frac{\text{RE}_{\text{CH}_4}}{\text{RE}_{\text{CO}_2}} \right)\times 0.486
     \quad\Longrightarrow\quad
     \left(\frac{\text{RE}_{\text{CH}_4}}{\text{RE}_{\text{CO}_2}}\right) 
