@@ -7,34 +7,31 @@ import math
 st.set_page_config(page_title="Emission Credit Calculator", layout="wide")
 
 # --------------------------------------------------
-# 2) CUSTOM CSS FOR VERY LARGE FONTS & STYLES
+# 2) CUSTOM CSS FOR SMALLER FONTS & STYLES
 # --------------------------------------------------
 st.markdown("""
 <style>
-/* Make all text bigger globally */
+/* Base styling for desktop and larger devices */
 html, body, [class*="css"]  {
-    font-size: 28px !important;
-    line-height: 1.8 !important;
-    color: #111 !important; /* Slightly darker text */
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+    color: #111 !important;
 }
 
-/* Increase font size for LaTeX (KaTeX) elements */
-.katex-html .katex {
-    font-size: 1.8em !important;
-}
-.katex-display > .katex {
-    font-size: 1.8em !important;
+/* Adjust font size for LaTeX (KaTeX) elements */
+.katex-html .katex, .katex-display > .katex {
+    font-size: 1.2em !important;
 }
 
-/* Larger headings */
+/* Desktop headings */
 .header-style { 
-    font-size: 50px !important; 
+    font-size: 32px !important; 
     font-weight: bold; 
     color: #2F4F4F; 
     margin-bottom: 1rem !important;
 }
 .subheader-style { 
-    font-size: 38px !important; 
+    font-size: 24px !important; 
     color: #2E8B57; 
     border-bottom: 3px solid #2E8B57; 
     margin-top: 1.5rem !important;
@@ -43,16 +40,38 @@ html, body, [class*="css"]  {
 
 /* Metric box styling */
 .metric-box { 
-    padding: 25px; 
+    padding: 15px; 
     background: #F0FFF0; 
     border-radius: 12px; 
-    margin: 18px 0; 
-    font-size: 26px !important;
+    margin: 12px 0; 
+    font-size: 16px !important;
 }
 
-/* Optional: Increase the expander header text size */
+/* Expander header */
 .streamlit-expanderHeader {
-    font-size: 32px !important;
+    font-size: 20px !important;
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 600px) {
+    html, body, [class*="css"] {
+        font-size: 14px !important;
+    }
+    .header-style { 
+        font-size: 24px !important; 
+    }
+    .subheader-style { 
+        font-size: 20px !important; 
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+    .metric-box { 
+        padding: 10px; 
+        font-size: 14px !important;
+    }
+    .streamlit-expanderHeader {
+        font-size: 18px !important;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -67,7 +86,7 @@ st.markdown('<p class="header-style">🌍 CO₂-Equivalent Credit Calculator</p>
 # --------------------------------------------------
 with st.sidebar:
     # Logo at the top of the sidebar
-    st.image("mylogo.png", width=200)
+    st.image("mylogo.png", width=120)
     
     st.header("⚙️ Input Parameters")
     E_CO2 = st.number_input("CO₂ Emissions Avoided (tonnes)", value=10.0, min_value=0.0)
@@ -82,7 +101,6 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("**Advanced RfP Parameters**")
     
-    # Use tau_CH4 consistently
     tau_CH4 = st.number_input("CH₄ Atmospheric Lifetime (years)", value=12.0)
     RE_ratio = st.number_input("Radiative Efficiency Ratio (RE₍CH₄₎/RE₍CO₂₎)", value=173.0)
 
@@ -117,7 +135,7 @@ with st.expander("Why 173?"):
 
     $$
     I_{\text{CO}_2} 
-      \approx 20 \times \text{RE}_{\text{CO}_2}
+      \approx 20 \times \text{RE}_{\text{CO₂}}
     $$
 
     **Step 3: GWP₂₀**  
@@ -125,8 +143,8 @@ with st.expander("Why 173?"):
 
     $$
     \text{GWP}_{20}(\text{CH}_4) 
-      = \frac{I_{\text{CH}_4}}{I_{\text{CO}_2}}
-      = \frac{\text{RE}_{\text{CH}_4} \times \tau_{\text{CH}_4}\left(1 - e^{-20/\tau_{\text{CH}_4}}\right)}{20\, \text{RE}_{\text{CO}_2}}
+      = \frac{I_{\text{CH}_4}}{I_{\text{CO₂}}}
+      = \frac{\text{RE}_{\text{CH}_4} \times \tau_{\text{CH}_4}\left(1 - e^{-20/\tau_{\text{CH}_4}}\right)}{20\, \text{RE}_{\text{CO₂}}}
       \approx 84
     $$
 
@@ -163,8 +181,8 @@ def calculate_gwp100_credits(E_CO2, E_CH4, gwp100):
 def calculate_rfp_credits(E_CO2, E_CH4, T, tau_CH4, re_ratio):
     """
     1) Integrated CH4 forcing: I_CH4 = tau_CH4 * (1 - e^(-T/tau_CH4))
-    2) Effective conversion factor: C_RfP = (I_CH4 / T) * (RE_CH4 / RE_CO2)
-    3) Credits: E_CO2 + E_CH4 * C_RfP
+    2) Effective conversion factor: C_RfP = (I_CH4 / T) * (RE_CH4 / RE_CO₂)
+    3) Credits: E_CO₂ + E_CH₄ * C_RfP
     """
     integrated_CH4 = tau_CH4 * (1 - math.exp(-T / tau_CH4))
     conv_factor = re_ratio * (integrated_CH4 / T)
@@ -223,7 +241,7 @@ with col2:
             C_{RfP} 
             = \frac{I_{CH_4}}{T} 
             \times 
-            \frac{RE_{CH_4}}{RE_{CO_2}}
+            \frac{RE_{CH_4}}{RE_{CO₂}}
         ''')
         st.markdown(f'''
             - RE Ratio = {RE_ratio}  
@@ -261,35 +279,35 @@ with st.expander("📖 Methodological Details"):
     ### GWP100 Method
     $$
     \text{Credits}_{\text{GWP100}} 
-      = E_{CO_2} 
-      + \left(E_{CH_4} \times \text{GWP100}\right)
+      = E_{CO₂} 
+      + \left(E_{CH₄} \times \text{GWP100}\right)
     $$
     Where:
-    - $E_{CO_2}$ = CO₂ emissions avoided  
-    - $E_{CH_4}$ = CH₄ emissions avoided  
+    - $E_{CO₂}$ = CO₂ emissions avoided  
+    - $E_{CH₄}$ = CH₄ emissions avoided  
     - GWP100 = Global Warming Potential over 100-year horizon  
 
     ### Radiative Forcing Protocol (RfP)
     **Integrated Forcing:**
     $$
-    I_{CH_4} 
-      = \tau_{CH_4} 
+    I_{CH₄} 
+      = \tau_{CH₄} 
       \times 
-      \left(1 - e^{-T/\tau_{CH_4}} \right)
+      \left(1 - e^{-T/\tau_{CH₄}} \right)
     $$
     
     **Effective Conversion Factor:**
     $$
     C_{RfP} 
-      = \frac{I_{CH_4}}{T} 
+      = \frac{I_{CH₄}}{T} 
       \times 
-      \frac{RE_{CH_4}}{RE_{CO_2}}
+      \frac{RE_{CH₄}}{RE_{CO₂}}
     $$
     
     **Final Credit Calculation:**
     $$
     \text{Credits}_{RfP} 
-      = E_{CO_2} 
-      + \left(E_{CH_4} \times C_{RfP}\right)
+      = E_{CO₂} 
+      + \left(E_{CH₄} \times C_{RfP}\right)
     $$
     ''')
