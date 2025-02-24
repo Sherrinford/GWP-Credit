@@ -10,12 +10,29 @@ st.set_page_config(page_title="Emission Credit Calculator", layout="wide")
 # 2) CUSTOM CSS FOR SMALLER FONTS & STYLES
 # --------------------------------------------------
 st.markdown("""
+<meta name="color-scheme" content="light"/>
 <style>
-/* Base styling for desktop and larger devices */
-html, body, [class*="css"]  {
+/* Tell the browser to use a light color scheme */
+:root {
+    color-scheme: light !important;
+}
+
+/* Force main backgrounds to white */
+html, body, [class*="css"] {
+    background-color: #FFFFFF !important;
+    color: #111 !important;
     font-size: 16px !important;
     line-height: 1.4 !important;
-    color: #111 !important;
+}
+
+/* Make sure Streamlit's main container also has white bg */
+[data-testid="stAppViewContainer"] {
+    background-color: #FFFFFF !important;
+}
+
+/* Make the sidebar distinct if desired */
+[data-testid="stSidebar"] {
+    background-color: #F0FFF0 !important;
 }
 
 /* Adjust font size for LaTeX (KaTeX) elements */
@@ -54,6 +71,7 @@ html, body, [class*="css"]  {
 
 /* Responsive adjustments for mobile devices */
 @media (max-width: 600px) {
+    /* Slightly smaller text on narrow screens */
     html, body, [class*="css"] {
         font-size: 14px !important;
     }
@@ -75,6 +93,7 @@ html, body, [class*="css"]  {
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 # --------------------------------------------------
 # 3) WEBPAGE HEADER
