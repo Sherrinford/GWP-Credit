@@ -88,7 +88,7 @@ with st.sidebar:
 # --------------------------------------------------
 # 5) "Why 173?" EXPANDER
 # --------------------------------------------------
-with st.expander("Why 173?"):
+with st.expander("Why Radiative Efficiency Ratio is taken as 173?"):
     st.markdown(r"""
     ### Detailed Derivation of the 173 Ratio
 
