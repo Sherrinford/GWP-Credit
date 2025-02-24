@@ -148,6 +148,15 @@ with st.expander("Why 173?"):
       \approx 173
     $$
 
+    $$
+    84 
+      = \left(\frac{\text{RE}_{\text{CH}_4}}{\text{RE}_{\text{CO}_2}} \right)\times 0.486
+    \quad\Longrightarrow\quad
+    \left(\frac{\text{RE}_{\text{CH}_4}}{\text{RE}_{\text{CO}_2}}\right) 
+      \approx \frac{84}{0.486} 
+      \approx 173
+    $$
+
     This shows that, *instantaneously*, CH₄'s radiative efficiency is about 173 times that of CO₂. 
     Over 20 years, factoring in methane decay, the net effect is a GWP₂₀ of ~84.
     """)
