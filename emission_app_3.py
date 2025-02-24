@@ -10,37 +10,23 @@ st.set_page_config(page_title="Emission Credit Calculator", layout="wide")
 # 2) CUSTOM CSS FOR SMALLER FONTS & STYLES
 # --------------------------------------------------
 st.markdown("""
-<meta name="color-scheme" content="light"/>
 <style>
-/* Tell the browser to use a light color scheme */
-:root {
-    color-scheme: light !important;
-}
-
-/* Force main backgrounds to white */
-html, body, [class*="css"] {
-    background-color: #FFFFFF !important;
-    color: #111 !important;
+/* Make all text smaller globally */
+html, body, [class*="css"]  {
     font-size: 16px !important;
     line-height: 1.4 !important;
-}
-
-/* Make sure Streamlit's main container also has white bg */
-[data-testid="stAppViewContainer"] {
-    background-color: #FFFFFF !important;
-}
-
-/* Make the sidebar distinct if desired */
-[data-testid="stSidebar"] {
-    background-color: #F0FFF0 !important;
+    color: #111 !important; /* Slightly darker text */
 }
 
 /* Adjust font size for LaTeX (KaTeX) elements */
-.katex-html .katex, .katex-display > .katex {
+.katex-html .katex {
+    font-size: 1.2em !important;
+}
+.katex-display > .katex {
     font-size: 1.2em !important;
 }
 
-/* Desktop headings */
+/* Smaller headings */
 .header-style { 
     font-size: 32px !important; 
     font-weight: bold; 
@@ -64,36 +50,12 @@ html, body, [class*="css"] {
     font-size: 16px !important;
 }
 
-/* Expander header */
+/* Optional: Adjust the expander header text size */
 .streamlit-expanderHeader {
     font-size: 20px !important;
 }
-
-/* Responsive adjustments for mobile devices */
-@media (max-width: 600px) {
-    /* Slightly smaller text on narrow screens */
-    html, body, [class*="css"] {
-        font-size: 14px !important;
-    }
-    .header-style { 
-        font-size: 24px !important; 
-    }
-    .subheader-style { 
-        font-size: 20px !important; 
-        margin-top: 1rem !important;
-        margin-bottom: 1rem !important;
-    }
-    .metric-box { 
-        padding: 10px; 
-        font-size: 14px !important;
-    }
-    .streamlit-expanderHeader {
-        font-size: 18px !important;
-    }
-}
 </style>
 """, unsafe_allow_html=True)
-
 
 # --------------------------------------------------
 # 3) WEBPAGE HEADER
